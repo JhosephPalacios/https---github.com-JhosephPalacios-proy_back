@@ -72,6 +72,7 @@ const Principal = () => {
       setIdioma(administradorEncontrado.idioma);
       setPrefijo(administradorEncontrado.prefijo);
       setColor(administradorEncontrado.color);
+      setImagenURL(administradorEncontrado.imagenURL);
     }
   }, [administradorEncontrado]);
 
@@ -133,16 +134,9 @@ async function handleGuardarClick() {
       contrasena: password,
     };
 
-    let datos = await doLeer ()
-
-    const correoExistente = datos.find((user) => user.correo === nuevosDatos.correo);
-    if (correoExistente) {
-      return error;
-    }
-
     await actualizarJSON(nuevosDatos);
-    
-    window.location.href = "/login";
+    alert("Se ha registrado correctamente");  
+    window.location.reload();
   };
 
 
@@ -153,23 +147,24 @@ async function handleGuardarClick() {
       tipoDocumento: tipoDOC,
       apellido: apellidos,
       nroDocumento,
+      imagenURL,
     };
   
     actualizarJSON(nuevosDatos);
     alert("Se ha actualizado correctamente");
-    window.location.href = "/login";
+    window.location.reload();
   };
 
   const handleGuardarClick3 = () => {
     const nuevosDatos = {
-      idioma,
-      prefijo,
-      color,
+      idioma: idioma,
+      prefijo : prefijo,
+      color: color,
     };
   
     actualizarJSON(nuevosDatos);
     alert("Se ha actualizado correctamente");
-    window.location.href = "/login";
+    window.location.reload();
   };
 
   //logica para cambiar de opcion
@@ -199,15 +194,20 @@ async function handleGuardarClick() {
           <div className="seccion-perfil">
             <div className="imagen-admin">
               {imagenURL && (
-                <img
+                <><img
                   src={imagenURL}
                   alt="Imagen del administrador"
                   id="imagenAdmin"
                   style={{
                     maxWidth: '100%', // Ajusta el ancho máximo de la imagen
                     maxHeight: '300px', // Ajusta la altura máxima de la imagen según tus necesidades
-                  }}
-                />
+                  }} /><h1></h1><input
+                  type="file"
+                  id="cargarImagen"
+                  accept="image/*"
+                  style={{ display: 'none' }}
+                  onChange={handleImagenChange}
+                /><label htmlFor="cargarImagen">Cargar imagen</label></> 
               )}
               {!imagenURL && (
                 <>
@@ -328,7 +328,7 @@ async function handleGuardarClick() {
                       />
                     </div>
                     <div className="button-container-2" >
-                      <button className="register-button-2" onClick={repetido}>Guardar</button>
+                      <button className="register-button-2" onClick={handleGuardarClick}>Guardar</button>
                     </div>
                   </div>
                 )}

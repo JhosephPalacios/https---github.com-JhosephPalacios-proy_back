@@ -147,7 +147,6 @@ const Principal = () => {
     // Llama a la función para actualizar el archivo JSON con los nuevos datos
     actualizarJSON(nuevosDatos);
     alert("Se ha registrado correctamente");   
-
     window.location.reload();
   };
 
